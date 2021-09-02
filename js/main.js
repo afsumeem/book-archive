@@ -40,6 +40,7 @@ searchBtn.addEventListener('click', () => {
 //Display result
 const displayResult = (showBooks) => {
     const books = showBooks.docs;
+    books.length = 30;
 
     //error handling
     if (books.length === 0) {
@@ -71,10 +72,10 @@ const displayResult = (showBooks) => {
                 <div class="card-body">
                     <h5 class="card-title mb-3">${book.title}</h5>
                     <p><span class="fw-bold">Author:</span> ${book.author_name}</p>
-                    <p><span class="fw-bold">Publisher:</span> ${book.publisher.slice(0, 10)}</p>
-                </div>
+                    <p><span class="fw-bold">Publisher:</span> ${book.publisher.slice(0, 20)}</p>
+                </div >
                 <div class="card-footer">
-                    <small><span class="fw-bold">First Publish:</span> ${book.first_publish_year}</small>
+                <small><span class="fw-bold">First Publish:</span> ${book.first_publish_year}</small>
                 </div >
             </div >
             `;

@@ -72,7 +72,7 @@ const displayResult = (showBooks) => {
                 <img src="${displayimg}" class="card-img-top border img-fluid h-50 w-75 my-4 mx-auto" alt="${book.title}">
                 <div class="card-body">
                     <h5 class="card-title mb-3">${book.title}</h5>
-                    <p><span class="fw-bold">Author:</span> ${book.author_name}</p>
+                    <p><span class="fw-bold">Author:</span> ${authorName(book.author_name)}</p>
                     <p><span class="fw-bold">Publisher:</span> ${book.publisher.slice(0, 5)}</p>
                 </div >
                 <div class="card-footer">
@@ -84,5 +84,11 @@ const displayResult = (showBooks) => {
     });
 }
 
-
-
+//show author name
+const authorName = (name) => {
+    if (name !== undefined) {
+        return name;
+    } else {
+        return 'Unknown author';
+    }
+}

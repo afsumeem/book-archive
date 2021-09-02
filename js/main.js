@@ -2,6 +2,8 @@ const searchInput = document.getElementById('search-book');
 const searchBtn = document.getElementById('input-button');
 const bookContainer = document.getElementById('book-container');
 const errorMessage = document.getElementById('error-message');
+const totalBook = document.getElementById('total-result');
+
 
 //Button handler and load data
 searchBtn.addEventListener('click', () => {
@@ -13,18 +15,20 @@ searchBtn.addEventListener('click', () => {
     //clear book container
     bookContainer.textContent = '';
 
-    //clear error message
-    errorMessage.classList.add('d-none');
+    //clear total book
+    totalBook.textContent = '';
 
-    //error message
+
+    //handle error message
+    errorMessage.classList.add('d-none');
 
     if (search === '') {
         errorMessage.classList.remove('d-none');
-        errorMessage.innerText = `Please write something!!`;
+        errorMessage.innerText = `Please write a book name!!`;
         return;
     };
 
-
+    //fetch api
     const url = `https://openlibrary.org/search.json?q=${search}`;
 
     fetch(url)
@@ -38,18 +42,14 @@ const displayResult = (showBooks) => {
     const books = showBooks.docs;
 
     //error handling
-    if (books.length == 0) {
+    if (books.length === 0) {
         errorMessage.classList.remove('d-none');
         errorMessage.innerText = `No result found!!!
          Please enter e valid book name!!`;
-    } else {
-        errorMessage.classList.add('d-none');
-    }
-    //clear total book result
-    //totalBook.textContent = '';
+    };
 
-    //display total result
-    const totalBook = document.getElementById('total-result');
+
+    //display total book
     totalBook.innerHTML = `
         <div class="border text-center mb-5 p-2 bg-primary text-white">
             <h3 class="fw-bolder">Total book: ${showBooks.numFound}</h3>
@@ -57,8 +57,8 @@ const displayResult = (showBooks) => {
     `;
 
 
+    //books container 
     books.forEach(book => {
-        console.log(book);
 
         //display image(cover)
         const displayimg = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
@@ -73,7 +73,6 @@ const displayResult = (showBooks) => {
                     <p><span class="fw-bold">Author:</span> ${book.author_name}</p>
                     <p><span class="fw-bold">Publisher:</span> ${book.publisher.slice(0, 10)}</p>
                 </div>
-
                 <div class="card-footer">
                     <small><span class="fw-bold">First Publish:</span> ${book.first_publish_year}</small>
                 </div >
